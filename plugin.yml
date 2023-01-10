@@ -1,0 +1,8 @@
+name: InvulnerableItems
+main: net.evmodder.InvulnerableItems.InvulnerableItems
+author: EvModder
+description: Options to make certain items resist damage.
+website: https://github.com/EvModder/InvulnerableItems
+version: 1.0
+api-version: 1.13
+softdepend: [DropHeads]

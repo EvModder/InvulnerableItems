@@ -1,0 +1,12 @@
+# Put materials/heads(uuid or dropheads key) here:
+
+invulnerable-to-fire: [netherrack, head:strider, blaze_rod]
+invulnerable-to-fire_tick: [netherrack, head:strider, coal]
+
+invulnerable-to-lava:
+  - head:strider
+  - nether_quartz_ore
+
+invulnerable-to-cactus:
+  - netherite_sword
+  - netherite_axe
