@@ -1,4 +1,7 @@
-# Put materials/heads(uuid or dropheads key) here:
+# Put materials/heads(uuid or dropheads key) here.
+# invulnerable-to-<cause>: <string list>
+# List of supported damage causes:
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
 
 invulnerable-to-fire: [netherrack, head:strider, blaze_rod]
 invulnerable-to-fire_tick: [netherrack, head:strider, coal]
@@ -7,6 +10,6 @@ invulnerable-to-lava:
   - head:strider
   - nether_quartz_ore
 
-invulnerable-to-cactus:
+invulnerable-to-contact:
   - netherite_sword
   - netherite_axe

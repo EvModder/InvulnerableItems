@@ -26,9 +26,6 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 
 
 	@Override public void onEvEnable(){
-		typeMap = new HashMap<>();
-		headMap = new HashMap<>();
-
 		// TODO: only init this map if it is actually needed (i.e., if DropHeads items are made invulnerable)
 		HashMap<String/*eg: VEX*/, Set<UUID>/*eg: {VEX, VEX|CHARGING}*/> subtypes = new HashMap<>();
 		for(final String textureKey : ((DropHeads)getServer().getPluginManager().getPlugin("DropHeads")).getAPI().getTextures().keySet()){
@@ -40,9 +37,11 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 			if(uuidSet.size() == 1) subtypes.put(eTypeName, uuidSet);
 		}
 
+		typeMap = new HashMap<>();
+		headMap = new HashMap<>();
 		for(DamageCause cause : DamageCause.values()){
 			final List<String> itemNames = config.getStringList("invulnerable-to-"+cause.name().toLowerCase());
-			if(itemNames == null) continue;
+			if(itemNames == null || itemNames.isEmpty()) continue;
 			Set<Material> types = new HashSet<>();
 			Set<UUID> uuids = new HashSet<>();
 			for(String itemName : itemNames){
@@ -57,6 +56,8 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 					catch(IllegalArgumentException ex){getLogger().warning("Unknown item: "+itemName);}
 				}
 			}
+			if(!types.isEmpty()) typeMap.put(cause, types);
+			if(!uuids.isEmpty()) headMap.put(cause, uuids);
 		}
 
 		getServer().getPluginManager().registerEvents(this, this);
@@ -73,7 +74,7 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 	@EventHandler(ignoreCancelled = true)
 	public void onItemDamage(EntityDamageEvent evt){
 		if(evt.getEntity() instanceof Item && isProtectedFrom((Item)evt.getEntity(), evt.getCause())){
-			getLogger().info("Cancelled damage for: "+((Item)evt.getEntity()).getType()+", rsn: "+evt.getCause());
+			getLogger().finer("Cancelled damage for: "+((Item)evt.getEntity()).getType()+", rsn: "+evt.getCause());
 			evt.setCancelled(true);
 		}
 	}
