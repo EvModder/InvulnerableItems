@@ -3,6 +3,9 @@
 # List of supported damage causes:
 # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
 
+
+# Can use either list format: [] or type: - on each line, both examples below:
+
 invulnerable-to-fire: [netherrack, head:strider, blaze_rod]
 invulnerable-to-fire_tick: [netherrack, head:strider, coal]
 
@@ -13,3 +16,7 @@ invulnerable-to-lava:
 invulnerable-to-contact:
   - netherite_sword
   - netherite_axe
+
+
+invulnerable-to-block_explosion:  [head:wither, head:WITHER|ARMORED, head:wither|invulnerable, HEAD:WITHER|ARMORED|INVULNERABLE, head:wither|grumm]
+invulnerable-to-entity_explosion: [head:wither, head:WITHER|ARMORED, head:wither|invulnerable, HEAD:WITHER|ARMORED|INVULNERABLE]

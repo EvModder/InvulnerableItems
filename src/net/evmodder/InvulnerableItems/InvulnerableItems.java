@@ -14,7 +14,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.meta.SkullMeta;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.authlib.GameProfile;
-import net.evmodder.DropHeads.DropHeads;
 import net.evmodder.EvLib.extras.HeadUtils;
 import net.evmodder.EvLib.EvPlugin;
 
@@ -26,17 +25,6 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 
 
 	@Override public void onEvEnable(){
-		// TODO: only init this map if it is actually needed (i.e., if DropHeads items are made invulnerable)
-		HashMap<String/*eg: VEX*/, Set<UUID>/*eg: {VEX, VEX|CHARGING}*/> subtypes = new HashMap<>();
-		for(final String textureKey : ((DropHeads)getServer().getPluginManager().getPlugin("DropHeads")).getAPI().getTextures().keySet()){
-			final UUID uuid = UUID.nameUUIDFromBytes(textureKey.getBytes());
-			final int i = textureKey.indexOf('|');
-			final String eTypeName = (i == -1 ? textureKey : textureKey.substring(0, i)).toUpperCase();
-			Set<UUID> uuidSet = subtypes.getOrDefault(eTypeName, new HashSet<>());
-			uuidSet.add(uuid);
-			if(uuidSet.size() == 1) subtypes.put(eTypeName, uuidSet);
-		}
-
 		typeMap = new HashMap<>();
 		headMap = new HashMap<>();
 		for(DamageCause cause : DamageCause.values()){
@@ -47,9 +35,7 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 			for(String itemName : itemNames){
 				itemName = itemName.toUpperCase();
 				if(itemName.startsWith("HEAD:")){
-					itemName = itemName.substring(5);
-					try{uuids.add(UUID.fromString(itemName));}
-					catch(IllegalArgumentException e){uuids.addAll(subtypes.getOrDefault(itemName, EMPTY_HEAD_MAP));}
+					uuids.add(UUID.nameUUIDFromBytes(itemName.substring(5).getBytes()));
 				}
 				else{
 					try{types.add(Material.valueOf(itemName));}
