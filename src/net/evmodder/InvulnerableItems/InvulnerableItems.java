@@ -14,8 +14,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.meta.SkullMeta;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.authlib.GameProfile;
-import net.evmodder.EvLib.extras.HeadUtils;
-import net.evmodder.EvLib.EvPlugin;
+import net.evmodder.EvLib.bukkit.HeadUtils;
+import net.evmodder.EvLib.bukkit.EvPlugin;
 
 public final class InvulnerableItems extends EvPlugin implements Listener{
 	private HashMap<DamageCause, Set<Material>> typeMap;
