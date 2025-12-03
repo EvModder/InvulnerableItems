@@ -13,8 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.meta.SkullMeta;
 import com.google.common.collect.ImmutableSet;
-import com.mojang.authlib.GameProfile;
-import net.evmodder.EvLib.bukkit.HeadUtils;
+import net.evmodder.EvLib.bukkit.YetAnotherProfile;
 import net.evmodder.EvLib.bukkit.EvPlugin;
 
 public final class InvulnerableItems extends EvPlugin implements Listener{
@@ -53,8 +52,8 @@ public final class InvulnerableItems extends EvPlugin implements Listener{
 		if(item == null || item.getItemStack() == null) return false;
 		if(typeMap.getOrDefault(damage, EMPTY_TYPE_MAP).contains(item.getItemStack().getType())) return true;
 		if(item.getItemStack().getType() != Material.PLAYER_HEAD || !item.getItemStack().hasItemMeta()) return false;
-		final GameProfile profile = HeadUtils.getGameProfile((SkullMeta)item.getItemStack().getItemMeta());
-		return profile != null && headMap.getOrDefault(damage, EMPTY_HEAD_MAP).contains(profile.getId());
+		final YetAnotherProfile profile = YetAnotherProfile.fromSkullMeta((SkullMeta)item.getItemStack().getItemMeta());
+		return profile != null && headMap.getOrDefault(damage, EMPTY_HEAD_MAP).contains(profile.id());
 	}
 
 	@EventHandler(ignoreCancelled = true)
